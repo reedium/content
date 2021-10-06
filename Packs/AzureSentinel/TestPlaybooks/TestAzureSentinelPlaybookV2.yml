@@ -707,12 +707,10 @@ tasks:
       '#none#':
       - "21"
     scriptarguments:
-      items_search_key:
-        simple: IP
       file_entry_id:
         simple: ${File.EntryID}
-      source:
-        simple: Local file
+      items_search_key:
+        simple: IP
       watchlist_alias:
         simple: ${inputs.watchlist_alias}
       watchlist_display_name:
@@ -845,16 +843,18 @@ tasks:
     task:
       id: 6da0ce5b-a40a-4995-8a8d-4d431f4403a0
       version: -1
-      name: azure-sentinel-list-watchlist-items
-      description: Get single watchlist item or list of watchlist items.
-      script: '|||azure-sentinel-list-watchlist-items'
+      name: azure-sentinel-create-update-watchlist-item
+      description: Create or update a watchlist item.
+      script: Azure Sentinel|||azure-sentinel-create-update-watchlist-item
       type: regular
       iscommand: true
-      brand: ""
+      brand: Azure Sentinel
     nexttasks:
       '#none#':
-      - "25"
+      - "26"
     scriptarguments:
+      item_key_value:
+        simple: '{"name": "test_playbook_item", "IP": "1.1.1.1"}'
       watchlist_alias:
         simple: ${inputs.watchlist_alias}
     separatecontext: false
@@ -870,44 +870,6 @@ tasks:
     ignoreworker: false
     skipunavailable: false
     quietmode: 0
-  "25":
-    id: "25"
-    taskid: d21e2965-2394-4b3e-8b12-d9ad192fcc6c
-    type: condition
-    task:
-      id: d21e2965-2394-4b3e-8b12-d9ad192fcc6c
-      version: -1
-      name: Verify Outputs
-      type: condition
-      iscommand: false
-      brand: ""
-    nexttasks:
-      "yes":
-      - "26"
-    separatecontext: false
-    conditions:
-    - label: "yes"
-      condition:
-      - - operator: isEqualString
-          left:
-            value:
-              simple: AzureSentinel.WatchlistItem.WatchlistAlias
-            iscontext: true
-          right:
-            value:
-              simple: ${inputs.watchlist_alias}
-    view: |-
-      {
-        "position": {
-          "x": 1340,
-          "y": 1770
-        }
-      }
-    note: false
-    timertriggers: []
-    ignoreworker: false
-    skipunavailable: false
-    quietmode: 0
   "26":
     id: "26"
     taskid: f425f995-84e6-4868-8a0e-84d49cf843da
@@ -915,18 +877,16 @@ tasks:
     task:
       id: f425f995-84e6-4868-8a0e-84d49cf843da
       version: -1
-      name: azure-sentinel-create-update-watchlist-item
-      description: Create or update a watchlist item.
-      script: '|||azure-sentinel-create-update-watchlist-item'
+      name: azure-sentinel-list-watchlist-items
+      description: Get a single watchlist item or list of watchlist items.
+      script: Azure Sentinel|||azure-sentinel-list-watchlist-items
       type: regular
       iscommand: true
-      brand: ""
+      brand: Azure Sentinel
     nexttasks:
       '#none#':
       - "27"
     scriptarguments:
-      item_key_value:
-        simple: '{"name": "test_playbook_item", "IP": "1.1.1.1"}'
       watchlist_alias:
         simple: ${inputs.watchlist_alias}
     separatecontext: false
@@ -934,7 +894,7 @@ tasks:
       {
         "position": {
           "x": 1340,
-          "y": 1945
+          "y": 1865
         }
       }
     note: false
