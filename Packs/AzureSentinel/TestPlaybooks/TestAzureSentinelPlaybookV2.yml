@@ -879,14 +879,11 @@ tasks:
           right:
             value:
               simple: ${inputs.watchlist_alias}
-      - - operator: hasLength
+      - - operator: isNotEmpty
           left:
             value:
               simple: AzureSentinel.WatchlistItem
             iscontext: true
-          right:
-            value:
-              simple: "3"
     view: |-
       {
         "position": {
