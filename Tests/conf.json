@@ -4559,6 +4559,7 @@
         {
             "integrations": "Azure Sentinel",
             "playbookID": "TestAzureSentinelPlaybookV2",
+            "fromversion": "5.5.0",
             "is_mockable": false
         }
     ],
